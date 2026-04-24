@@ -14,34 +14,85 @@
   </head>
   <body>
     <div class="page-shell">
+      <div class="topbar">
+        <div class="brand-mark">
+          <span class="brand-dot"></span>
+          <span>Terp Support Copilot</span>
+        </div>
+        <div class="topbar-meta">
+          <span>UMD</span>
+          <span>support + clubs</span>
+        </div>
+      </div>
+
       <header class="hero">
         <div class="hero-copy">
           <p class="eyebrow">UMD hackathon MVP</p>
           <h1>Terp Support Copilot</h1>
           <p class="hero-text">
-            A text-based campus navigator for UMD students who do not know which
-            office, program, support channel, or student organization path to
-            try first.
+            Text a problem. Get the right UMD support or a club that actually fits.
           </p>
           <div class="hero-meta">
-            <span>Hidden resources + club discovery</span>
-            <span>Official UMD links only</span>
-            <span>Static MVP for a one-hour build</span>
+            <span>Official UMD links</span>
+            <span>Plain-language matching</span>
+          </div>
+          <div class="hero-actions">
+            <a class="primary-link" href="#chatPanel">Try the copilot</a>
+            <a class="secondary-link" href="#resourcePanel">Browse resources</a>
           </div>
         </div>
         <aside class="hero-card">
-          <h2>How to demo it</h2>
-          <p>
-            Enter a student situation in plain English. The copilot returns the
-            top UMD resources, why they match, and what the student should do
-            next, including help finding clubs after the look fairs.
-          </p>
+          <p class="panel-label">Demo focus</p>
+          <h2>Two jobs</h2>
+          <div class="highlight-list compact-highlights">
+            <div class="highlight-card">
+              <strong>Support</strong>
+              <span>Rent, food, mental health, academics.</span>
+            </div>
+            <div class="highlight-card">
+              <strong>Clubs</strong>
+              <span>Specific orgs, not only TerpLink.</span>
+            </div>
+          </div>
           <p class="timestamp">Dataset refreshed from official UMD pages on April 24, 2026.</p>
         </aside>
       </header>
 
+      <section class="interactive-band">
+        <article class="journey-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Interactive journeys</p>
+              <h2>Tap a scenario</h2>
+            </div>
+          </div>
+          <div id="journeyCards" class="journey-grid"></div>
+        </article>
+
+        <aside class="visual-panel">
+          <p class="panel-label">Preview</p>
+          <h2>Text-first flow</h2>
+          <div class="phone-preview">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="chat-bubble chat-bubble-user">I missed First Look Fair. What clubs actually fit me?</div>
+              <div class="chat-bubble chat-bubble-agent">Try App Dev Club, XR Club, and Student Art League based on your interests.</div>
+              <div class="chat-mini-cards">
+                <div class="mini-card"></div>
+                <div class="mini-card mini-card-accent"></div>
+              </div>
+            </div>
+          </div>
+          <div class="glow-art" aria-hidden="true">
+            <div class="orb orb-one"></div>
+            <div class="orb orb-two"></div>
+            <div class="orb orb-three"></div>
+          </div>
+        </aside>
+      </section>
+
       <main class="main-grid">
-        <section class="panel panel-chat">
+        <section class="panel panel-chat" id="chatPanel">
           <div class="panel-heading">
             <div>
               <p class="panel-label">Text agent</p>
@@ -60,13 +111,13 @@
               id="studentInput"
               name="studentInput"
               rows="4"
-              placeholder="Example: I'm behind on rent, my mental health is bad, and I might need to drop a class."
+              placeholder="Example: I missed First Look Fair and want creative or tech clubs where I can actually meet people."
             ></textarea>
-            <button class="primary-button" type="submit">Find support</button>
+            <button class="primary-button" type="submit">Search</button>
           </form>
         </section>
 
-        <section class="panel panel-resources">
+        <section class="panel panel-resources" id="resourcePanel">
           <div class="panel-heading">
             <div>
               <p class="panel-label">UMD resource corpus</p>
@@ -75,8 +126,38 @@
             <span id="resourceCount" class="count-pill"></span>
           </div>
 
+          <div id="resourceFilters" class="resource-filters" aria-label="Resource filters">
+            <button class="filter-chip is-active" type="button" data-filter="all">All</button>
+            <button class="filter-chip" type="button" data-filter="support">Support</button>
+            <button class="filter-chip" type="button" data-filter="clubs">Clubs</button>
+            <button class="filter-chip" type="button" data-filter="live">Live</button>
+          </div>
+
           <div id="resourceList" class="resource-list"></div>
         </section>
+
+        <aside class="panel panel-spotlight">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Hover spotlight</p>
+              <h2>Preview</h2>
+            </div>
+          </div>
+          <div id="spotlightCard" class="spotlight-card">
+            <div class="spotlight-image" aria-hidden="true">
+              <div class="spotlight-ring"></div>
+              <div class="spotlight-ring spotlight-ring-inner"></div>
+            </div>
+            <div class="spotlight-copy">
+              <p class="spotlight-kicker">Preview</p>
+              <h3 id="spotlightTitle">Terp Support Copilot</h3>
+              <p id="spotlightOffice" class="meta-line">Hover a resource card to preview it here.</p>
+              <p id="spotlightSummary">Hover a card to inspect it here.</p>
+              <div id="spotlightTags" class="tag-row"></div>
+              <a id="spotlightLink" class="source-link" href="#resourcePanel">Open</a>
+            </div>
+          </div>
+        </aside>
       </main>
     </div>
 

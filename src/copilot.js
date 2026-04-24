@@ -1,5 +1,246 @@
 import { liveResources } from "./live-resources.js";
 
+const clubResources = [
+  {
+    id: "club-competitive-programming",
+    kind: "club",
+    name: "Competitive Programming Club",
+    office: "Student Organization",
+    summary: "Good fit for students who want algorithms, coding interview practice, and programming contests.",
+    tags: ["clubs", "community", "tech"],
+    interests: ["coding", "algorithms", "interview prep", "leetcode", "competitive programming", "computer science"],
+    keywords: ["coding", "algorithms", "leetcode", "competitive programming", "interview", "cs"],
+    urgency: "low",
+    nextStep: "Open the org page and use the TerpLink join flow or contact the listed officers.",
+    reasonTemplate: "Specific tech club match.",
+    url: "https://terplink.umd.edu/organization/competitive-programming-club",
+  },
+  {
+    id: "club-app-dev",
+    kind: "club",
+    name: "App Dev Club",
+    office: "Student Organization",
+    summary: "Good fit for students who want to build apps, ship projects, and work with other developers.",
+    tags: ["clubs", "community", "tech", "build"],
+    interests: ["coding", "app development", "mobile", "software", "projects", "startup"],
+    keywords: ["app", "mobile", "software", "projects", "build", "coding"],
+    urgency: "low",
+    nextStep: "Open the org page and join or message the club directly.",
+    reasonTemplate: "Specific build-oriented tech club match.",
+    url: "https://terplink.umd.edu/organization/app-dev-club",
+  },
+  {
+    id: "club-cybersecurity",
+    kind: "club",
+    name: "Cybersecurity Club",
+    office: "Student Organization",
+    summary: "Good fit for students interested in security, CTFs, ethical hacking, and systems.",
+    tags: ["clubs", "community", "tech", "security"],
+    interests: ["cybersecurity", "security", "ctf", "hacking", "networking", "systems"],
+    keywords: ["cyber", "security", "ctf", "hacking", "network", "systems"],
+    urgency: "low",
+    nextStep: "Open the org page and look for join information or officer contact details.",
+    reasonTemplate: "Specific cybersecurity club match.",
+    url: "https://terplink.umd.edu/organization/cybersecurity-club",
+  },
+  {
+    id: "club-game-dev",
+    kind: "club",
+    name: "Game Developers Club",
+    office: "Student Organization",
+    summary: "Good fit for students interested in game design, development, art pipelines, and collaborative creative tech work.",
+    tags: ["clubs", "community", "tech", "creative"],
+    interests: ["games", "game development", "design", "creative coding", "art", "programming"],
+    keywords: ["game", "games", "unity", "design", "creative", "art"],
+    urgency: "low",
+    nextStep: "Open the org page and use the club contact or join path there.",
+    reasonTemplate: "Specific game development club match.",
+    url: "https://terplink.umd.edu/organization/game-developers-club",
+  },
+  {
+    id: "club-xr",
+    kind: "club",
+    name: "XR Club",
+    office: "Student Organization",
+    summary: "Good fit for students interested in AR, VR, immersive tech, and experimental interactive work.",
+    tags: ["clubs", "community", "tech", "creative"],
+    interests: ["xr", "vr", "ar", "immersive tech", "design", "creative tech"],
+    keywords: ["xr", "vr", "ar", "immersive", "creative tech"],
+    urgency: "low",
+    nextStep: "Open the org page to see current club contacts and join details.",
+    reasonTemplate: "Specific XR club match.",
+    url: "https://terplink.umd.edu/organization/xr-club",
+  },
+  {
+    id: "club-homelab",
+    kind: "club",
+    name: "Homelab Club",
+    office: "Student Organization",
+    summary: "Good fit for students interested in servers, systems, infrastructure, networking, and self-hosting.",
+    tags: ["clubs", "community", "tech", "systems"],
+    interests: ["systems", "infrastructure", "servers", "networking", "homelab", "self-hosting"],
+    keywords: ["systems", "infrastructure", "servers", "networking", "homelab"],
+    urgency: "low",
+    nextStep: "Open the org page and follow the join instructions there.",
+    reasonTemplate: "Specific systems club match.",
+    url: "https://terplink.umd.edu/organization/homelab-club",
+  },
+  {
+    id: "club-technica",
+    kind: "club",
+    name: "Technica",
+    office: "Student Organization",
+    summary: "Good fit for students looking for a large hackathon and an inclusive builder community around tech and product work.",
+    tags: ["clubs", "community", "tech", "events"],
+    interests: ["hackathon", "tech community", "building", "product", "design", "engineering"],
+    keywords: ["hackathon", "build", "product", "design", "engineering"],
+    urgency: "low",
+    nextStep: "Open the org page and follow the club links for involvement and events.",
+    reasonTemplate: "Specific hackathon/community match.",
+    url: "https://terplink.umd.edu/organization/technica-hacks",
+  },
+  {
+    id: "club-code-black",
+    kind: "club",
+    name: "Code Black",
+    office: "Student Organization",
+    summary: "Good fit for students looking for community in tech with a strong identity and belonging angle.",
+    tags: ["clubs", "community", "tech", "belonging"],
+    interests: ["tech community", "belonging", "coding", "support network", "identity-based community"],
+    keywords: ["community", "belonging", "coding", "support"],
+    urgency: "low",
+    nextStep: "Open the org page and use the listed contact or join path.",
+    reasonTemplate: "Specific belonging-oriented tech community match.",
+    url: "https://terplink.umd.edu/organization/code-black",
+  },
+  {
+    id: "club-ostem",
+    kind: "club",
+    name: "oSTEM at UMD",
+    office: "Student Organization",
+    summary: "Good fit for LGBTQ+ students in STEM looking for community, mentorship, and belonging.",
+    tags: ["clubs", "community", "tech", "belonging"],
+    interests: ["lgbtq", "stem", "belonging", "community", "support network"],
+    keywords: ["lgbtq", "stem", "community", "belonging"],
+    urgency: "low",
+    nextStep: "Open the org page and use the join flow or officer contact details.",
+    reasonTemplate: "Specific STEM belonging/community match.",
+    url: "https://terplink.umd.edu/organization/umd-ostem",
+  },
+  {
+    id: "club-student-art-league",
+    kind: "club",
+    name: "Student Art League",
+    office: "Student Organization",
+    summary: "Good fit for students interested in visual art, making, exhibitions, and creative community.",
+    tags: ["clubs", "community", "creative", "art"],
+    interests: ["art", "visual art", "drawing", "painting", "creative community"],
+    keywords: ["art", "drawing", "painting", "visual", "creative"],
+    urgency: "low",
+    nextStep: "Open the org page and follow the join or contact path.",
+    reasonTemplate: "Specific visual arts club match.",
+    url: "https://terplink.umd.edu/organization/studentartleague",
+  },
+  {
+    id: "club-terpoets",
+    kind: "club",
+    name: "Terpoets",
+    office: "Student Organization",
+    summary: "Good fit for students interested in poetry, writing, spoken word, and literary community.",
+    tags: ["clubs", "community", "creative", "writing"],
+    interests: ["poetry", "writing", "spoken word", "literary community", "creative writing"],
+    keywords: ["poetry", "writing", "spoken word", "literary"],
+    urgency: "low",
+    nextStep: "Open the org page and use the listed contact or join flow.",
+    reasonTemplate: "Specific writing/poetry club match.",
+    url: "https://terplink.umd.edu/organization/terpoets",
+  },
+  {
+    id: "club-music-experimentation",
+    kind: "club",
+    name: "The Music Experimentation Club",
+    office: "Student Organization",
+    summary: "Good fit for students interested in music creation, production, experimentation, and creative collaboration.",
+    tags: ["clubs", "community", "creative", "music"],
+    interests: ["music", "music production", "creative collaboration", "audio", "performance"],
+    keywords: ["music", "audio", "production", "performance"],
+    urgency: "low",
+    nextStep: "Open the org page and follow the join instructions there.",
+    reasonTemplate: "Specific music club match.",
+    url: "https://terplink.umd.edu/organization/the-music-experimentation-club",
+  },
+  {
+    id: "club-swing-dance",
+    kind: "club",
+    name: "Swing Dance Club at UMD",
+    office: "Student Organization",
+    summary: "Good fit for students who want a social, beginner-friendly movement community and regular events.",
+    tags: ["clubs", "community", "creative", "dance"],
+    interests: ["dance", "social", "community", "movement", "events"],
+    keywords: ["dance", "social", "movement", "events"],
+    urgency: "low",
+    nextStep: "Open the org page and look for current meeting or contact information.",
+    reasonTemplate: "Specific dance club match.",
+    url: "https://terplink.umd.edu/organization/swing-dance-club-at-UMD",
+  },
+  {
+    id: "club-student-dance-association",
+    kind: "club",
+    name: "Student Dance Association",
+    office: "Student Organization",
+    summary: "Good fit for students interested in dance performance, rehearsals, and a creative social group.",
+    tags: ["clubs", "community", "creative", "dance"],
+    interests: ["dance", "performance", "creative community", "movement"],
+    keywords: ["dance", "performance", "movement"],
+    urgency: "low",
+    nextStep: "Open the org page to find join and event details.",
+    reasonTemplate: "Specific performance dance club match.",
+    url: "https://terplink.umd.edu/organization/student-dance-association",
+  },
+  {
+    id: "club-terps-racing",
+    kind: "club",
+    name: "Terps Racing",
+    office: "Student Organization",
+    summary: "Good fit for students interested in hands-on engineering, vehicles, fabrication, and team-based building.",
+    tags: ["clubs", "community", "engineering", "build"],
+    interests: ["engineering", "cars", "mechanical", "fabrication", "design", "building"],
+    keywords: ["engineering", "cars", "mechanical", "fabrication", "design"],
+    urgency: "low",
+    nextStep: "Open the org page and use the club contact or join information there.",
+    reasonTemplate: "Specific engineering build-team match.",
+    url: "https://terplink.umd.edu/organization/terps-racing",
+  },
+  {
+    id: "club-juggling",
+    kind: "club",
+    name: "Juggling Club",
+    office: "Student Organization",
+    summary: "Good fit for students who want a quirky, low-pressure social club and a fun skill-based community.",
+    tags: ["clubs", "community", "social"],
+    interests: ["social", "fun", "casual", "community", "performance"],
+    keywords: ["social", "fun", "casual", "performance"],
+    urgency: "low",
+    nextStep: "Open the org page and check the current meeting details.",
+    reasonTemplate: "Specific casual/social club match.",
+    url: "https://terplink.umd.edu/organization/juggling-club",
+  },
+  {
+    id: "club-rubiks-cube",
+    kind: "club",
+    name: "Rubik's Cube Club",
+    office: "Student Organization",
+    summary: "Good fit for students who want a casual problem-solving community with a specific hobby focus.",
+    tags: ["clubs", "community", "social"],
+    interests: ["puzzles", "casual", "problem solving", "hobby", "community"],
+    keywords: ["puzzles", "casual", "hobby", "problem solving"],
+    urgency: "low",
+    nextStep: "Open the org page and use the join or contact path there.",
+    reasonTemplate: "Specific hobby club match.",
+    url: "https://terplink.umd.edu/organization/rubiks-cube-club",
+  },
+];
+
 const baseResources = [
   {
     id: "thrive-center",
@@ -299,6 +540,15 @@ const tagMatchers = {
   categories: ["categories", "browse", "interest", "interests", "vibe"],
 };
 
+const clubInterestMatchers = {
+  tech: ["coding", "computer science", "cs", "software", "app", "developer", "tech", "programming"],
+  security: ["cyber", "security", "ctf", "hacking"],
+  creative: ["creative", "design", "art", "music", "writing", "poetry", "dance", "game"],
+  engineering: ["engineering", "mechanical", "robotics", "cars", "fabrication", "build"],
+  social: ["friends", "meet people", "social", "community", "casual", "fun"],
+  belonging: ["belonging", "identity", "support network", "lgbtq", "first-gen", "black"],
+};
+
 function normalizeResource(resource) {
   return {
     ...resource,
@@ -335,6 +585,7 @@ function mergeResources(staticResources, generatedResources) {
 }
 
 export const resources = mergeResources(baseResources, liveResources || []);
+export const clubCatalog = clubResources;
 
 export function detectNeeds(normalized) {
   const needs = new Set();
@@ -350,6 +601,18 @@ export function detectNeeds(normalized) {
   }
 
   return [...needs];
+}
+
+function detectClubInterests(normalized) {
+  const interests = new Set();
+
+  Object.entries(clubInterestMatchers).forEach(([interest, words]) => {
+    if (words.some((word) => normalized.includes(word))) {
+      interests.add(interest);
+    }
+  });
+
+  return [...interests];
 }
 
 export function detectPriority(normalized) {
@@ -368,6 +631,54 @@ export function findBestResources(query) {
   const normalized = query.toLowerCase();
   const detectedNeeds = detectNeeds(normalized);
   const priority = detectPriority(normalized);
+
+  if (detectedNeeds.includes("clubs")) {
+    const clubInterests = detectClubInterests(normalized);
+    const clubMatches = clubCatalog
+      .map((club) => {
+        let score = 0;
+        const reasons = [];
+
+        clubInterests.forEach((interest) => {
+          if (club.tags.includes(interest) || club.interests.includes(interest)) {
+            score += 5;
+            reasons.push(`${interest} fit`);
+          }
+        });
+
+        club.interests.forEach((interest) => {
+          if (normalized.includes(interest.toLowerCase())) {
+            score += interest.includes(" ") ? 5 : 3;
+          }
+        });
+
+        club.keywords.forEach((keyword) => {
+          if (normalized.includes(keyword.toLowerCase())) {
+            score += keyword.includes(" ") ? 4 : 2;
+          }
+        });
+
+        if (normalized.includes("meet people") || normalized.includes("make friends")) {
+          if (club.tags.includes("community") || club.tags.includes("social")) {
+            score += 3;
+            reasons.push("community angle");
+          }
+        }
+
+        if (!reasons.length && score > 0) {
+          reasons.push(club.reasonTemplate);
+        }
+
+        return { resource: club, score, reasons: [...new Set(reasons)] };
+      })
+      .filter((item) => item.score > 0)
+      .sort((left, right) => right.score - left.score)
+      .slice(0, 3);
+
+    if (clubMatches.length) {
+      return { matches: clubMatches, detectedNeeds, priority };
+    }
+  }
 
   const matches = resources
     .map((resource) => {
