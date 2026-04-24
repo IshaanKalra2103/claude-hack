@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terp Support Copilot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">UMD hackathon MVP</p>
+          <h1>Terp Support Copilot</h1>
+          <p class="hero-text">
+            A text-based campus navigator for UMD students who do not know which
+            office, program, support channel, or student organization path to
+            try first.
+          </p>
+          <div class="hero-meta">
+            <span>Hidden resources + club discovery</span>
+            <span>Official UMD links only</span>
+            <span>Static MVP for a one-hour build</span>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <h2>How to demo it</h2>
+          <p>
+            Enter a student situation in plain English. The copilot returns the
+            top UMD resources, why they match, and what the student should do
+            next, including help finding clubs after the look fairs.
+          </p>
+          <p class="timestamp">Dataset refreshed from official UMD pages on April 24, 2026.</p>
+        </aside>
+      </header>
+
+      <main class="main-grid">
+        <section class="panel panel-chat">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Text agent</p>
+              <h2>Student situation</h2>
+            </div>
+            <button id="clearChatButton" class="ghost-button" type="button">Clear</button>
+          </div>
+
+          <div id="suggestions" class="suggestions" aria-label="Demo prompts"></div>
+
+          <div id="chatLog" class="chat-log" aria-live="polite"></div>
+
+          <form id="chatForm" class="chat-form">
+            <label class="sr-only" for="studentInput">Describe your situation</label>
+            <textarea
+              id="studentInput"
+              name="studentInput"
+              rows="4"
+              placeholder="Example: I'm behind on rent, my mental health is bad, and I might need to drop a class."
+            ></textarea>
+            <button class="primary-button" type="submit">Find support</button>
+          </form>
+        </section>
+
+        <section class="panel panel-resources">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">UMD resource corpus</p>
+              <h2>Current resource pool</h2>
+            </div>
+            <span id="resourceCount" class="count-pill"></span>
+          </div>
+
+          <div id="resourceList" class="resource-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

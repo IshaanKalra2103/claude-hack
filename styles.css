@@ -1,0 +1,379 @@
+:root {
+  --bg: #f6efe4;
+  --surface: rgba(255, 252, 247, 0.84);
+  --surface-strong: #fffaf2;
+  --card-border: rgba(80, 43, 22, 0.12);
+  --text: #2d2018;
+  --muted: #6e5a4c;
+  --accent: #c73e2b;
+  --accent-dark: #8f2219;
+  --accent-soft: rgba(199, 62, 43, 0.12);
+  --gold: #c99c3a;
+  --shadow: 0 20px 60px rgba(59, 31, 17, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(201, 156, 58, 0.16), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(199, 62, 43, 0.14), transparent 24%),
+    linear-gradient(180deg, #fff7eb 0%, var(--bg) 100%);
+  color: var(--text);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.page-shell {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 40px 24px 56px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.hero-copy,
+.hero-card,
+.panel {
+  border: 1px solid var(--card-border);
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow);
+}
+
+.hero-copy {
+  border-radius: var(--radius-xl);
+  padding: 32px;
+}
+
+.hero-card {
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  align-self: stretch;
+}
+
+.eyebrow,
+.panel-label,
+.timestamp,
+.meta-line {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.eyebrow,
+.panel-label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.05;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
+  margin-top: 10px;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin-top: 6px;
+}
+
+h3 {
+  font-size: 1.02rem;
+}
+
+.hero-text {
+  font-size: 1.08rem;
+  line-height: 1.7;
+  max-width: 60ch;
+  margin: 18px 0 0;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.hero-meta span,
+.count-pill,
+.tag,
+.reason,
+.prompt-chip {
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-meta span,
+.count-pill {
+  background: rgba(45, 32, 24, 0.06);
+  color: var(--muted);
+  padding: 9px 14px;
+}
+
+.timestamp {
+  margin-top: 18px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 20px;
+}
+
+.panel {
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.prompt-chip,
+.ghost-button,
+.primary-button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.prompt-chip {
+  background: rgba(201, 156, 58, 0.16);
+  color: var(--text);
+  padding: 10px 14px;
+}
+
+.prompt-chip:hover,
+.prompt-chip:focus-visible {
+  background: rgba(201, 156, 58, 0.28);
+  outline: none;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 420px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.message {
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.message-user {
+  background: rgba(45, 32, 24, 0.05);
+  margin-left: 52px;
+}
+
+.message-agent {
+  background: linear-gradient(180deg, rgba(199, 62, 43, 0.08), rgba(201, 156, 58, 0.08));
+  margin-right: 26px;
+}
+
+.message-role {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.message p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.answer-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.answer-card,
+.resource-card {
+  background: var(--surface-strong);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.answer-card h3,
+.resource-card h3 {
+  margin-bottom: 6px;
+}
+
+.meta-line {
+  margin-bottom: 12px;
+}
+
+.reason-row,
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.reason {
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  padding: 7px 11px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.tag {
+  background: rgba(45, 32, 24, 0.07);
+  color: var(--muted);
+  padding: 6px 10px;
+  font-size: 0.82rem;
+}
+
+.source-link {
+  color: var(--accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.source-link:hover,
+.source-link:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+.chat-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid rgba(45, 32, 24, 0.14);
+  background: rgba(255, 255, 255, 0.76);
+  border-radius: 18px;
+  padding: 16px;
+  color: var(--text);
+  font: inherit;
+  line-height: 1.5;
+}
+
+textarea:focus-visible {
+  outline: 2px solid rgba(199, 62, 43, 0.35);
+  border-color: rgba(199, 62, 43, 0.5);
+}
+
+.primary-button {
+  justify-self: start;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent) 0%, #b95e26 100%);
+  color: white;
+  font-weight: 700;
+}
+
+.ghost-button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(45, 32, 24, 0.06);
+  color: var(--text);
+}
+
+.resource-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  max-height: 78vh;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.resource-card p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.resource-card .next-step {
+  margin-top: 10px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 1040px) {
+  .hero,
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resource-list,
+  .chat-log {
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 18px 14px 28px;
+  }
+
+  .hero-copy,
+  .hero-card,
+  .panel {
+    padding: 18px;
+  }
+
+  .message-user,
+  .message-agent {
+    margin: 0;
+  }
+}
