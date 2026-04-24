@@ -39,6 +39,7 @@
           <div class="hero-actions">
             <a class="primary-link" href="#chatPanel">Try the copilot</a>
             <a class="secondary-link" href="#resourcePanel">Browse resources</a>
+            <a id="messageLaunchLink" class="secondary-link" href="sms:&body=I%20need%20help%20finding%20UMD%20support%20or%20clubs">Open in Messages</a>
           </div>
         </div>
         <aside class="hero-card">
@@ -113,7 +114,10 @@
               rows="4"
               placeholder="Example: I missed First Look Fair and want creative or tech clubs where I can actually meet people."
             ></textarea>
-            <button class="primary-button" type="submit">Search</button>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Search</button>
+              <a id="messageLaunchLinkSecondary" class="ghost-button message-button" href="sms:&body=I%20need%20help%20finding%20UMD%20support%20or%20clubs">Continue in Messages</a>
+            </div>
           </form>
         </section>
 

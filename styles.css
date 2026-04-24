@@ -602,6 +602,13 @@ h3 {
   margin-top: 20px;
 }
 
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
 textarea {
   width: 100%;
   resize: vertical;
@@ -635,6 +642,14 @@ textarea:focus-visible {
   border-radius: 999px;
   background: rgba(24, 53, 76, 0.07);
   color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-button {
+  border: 1px solid rgba(24, 53, 76, 0.08);
 }
 
 .resource-list {

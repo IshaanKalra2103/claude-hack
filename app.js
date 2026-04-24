@@ -1,4 +1,4 @@
-import { findBestResources, resources } from "./src/copilot.js";
+import { clubCatalog, findBestResources, resources } from "./src/copilot.js";
 
 const starterPrompts = [
   "I'm behind on rent and I might drop a class.",
@@ -22,6 +22,8 @@ const spotlightOffice = document.querySelector("#spotlightOffice");
 const spotlightSummary = document.querySelector("#spotlightSummary");
 const spotlightTags = document.querySelector("#spotlightTags");
 const spotlightLink = document.querySelector("#spotlightLink");
+const messageLaunchLink = document.querySelector("#messageLaunchLink");
+const messageLaunchLinkSecondary = document.querySelector("#messageLaunchLinkSecondary");
 
 const journeyScenarios = [
   {
@@ -47,12 +49,19 @@ const journeyScenarios = [
 ];
 
 let activeFilter = "all";
+const browseResources = [...clubCatalog, ...resources];
+let sessionState = {
+  lastRawQuery: "",
+  lastEffectiveQuery: "",
+  lastNeeds: [],
+};
 
 renderStarterPrompts();
 renderJourneyCards();
-renderResourceList(resources);
-updateResourceCount(resources);
-setSpotlight(resources[0]);
+renderResourceList(browseResources);
+updateResourceCount(browseResources);
+setSpotlight(browseResources[0]);
+updateMessageLinks();
 
 appendAgentMessage(
   "Describe a UMD student situation. I can route hardship questions and club-discovery questions to the strongest official UMD resources."
@@ -66,17 +75,34 @@ chatForm.addEventListener("submit", (event) => {
     return;
   }
 
+  const effectiveQuery = buildEffectiveQuery(query);
   appendUserMessage(query);
-  const result = findBestResources(query);
-  appendAgentRecommendations(query, result);
+  const result = findBestResources(effectiveQuery);
+  appendAgentRecommendations(query, result, effectiveQuery !== query);
+  sessionState = {
+    lastRawQuery: query,
+    lastEffectiveQuery: effectiveQuery,
+    lastNeeds: result.detectedNeeds,
+  };
   studentInput.value = "";
+  updateMessageLinks();
 });
 
 clearChatButton.addEventListener("click", () => {
   chatLog.innerHTML = "";
+  sessionState = {
+    lastRawQuery: "",
+    lastEffectiveQuery: "",
+    lastNeeds: [],
+  };
   appendAgentMessage(
     "Chat cleared. Enter a new student situation and I’ll return the best UMD resources for it."
   );
+  updateMessageLinks();
+});
+
+studentInput.addEventListener("input", () => {
+  updateMessageLinks(studentInput.value.trim());
 });
 
 resourceFilters.addEventListener("click", (event) => {
@@ -91,7 +117,7 @@ resourceFilters.addEventListener("click", (event) => {
   const filtered = getFilteredResources(activeFilter);
   renderResourceList(filtered);
   updateResourceCount(filtered);
-  setSpotlight(filtered[0] || resources[0]);
+  setSpotlight(filtered[0] || browseResources[0]);
 });
 
 function renderStarterPrompts() {
@@ -138,6 +164,7 @@ function renderResourceList(items) {
       <h3>${resource.name}</h3>
       <p class="meta-line">${resource.office}</p>
       <p>${resource.summary}</p>
+      ${buildDetailRow(resource)}
       <div class="tag-row">${resource.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
       <p class="next-step"><strong>Next step:</strong> ${resource.nextStep}</p>
       <p class="next-step"><a class="source-link" href="${resource.url}" target="_blank" rel="noreferrer">Official UMD page</a></p>
@@ -148,12 +175,22 @@ function renderResourceList(items) {
   });
 }
 
+function buildDetailRow(resource) {
+  const detailPills = [];
+  if (resource.bestFor) detailPills.push(`<span class="tag">Best for: ${escapeHtml(resource.bestFor)}</span>`);
+  if (resource.vibe) detailPills.push(`<span class="tag">Vibe: ${escapeHtml(resource.vibe)}</span>`);
+  if (resource.commitment) detailPills.push(`<span class="tag">Time: ${escapeHtml(resource.commitment)}</span>`);
+  if (resource.beginnerFriendly === true) detailPills.push(`<span class="tag">Beginner friendly</span>`);
+  if (!detailPills.length) return "";
+  return `<div class="tag-row">${detailPills.join("")}</div>`;
+}
+
 function getFilteredResources(filter) {
-  if (filter === "all") return resources;
-  if (filter === "clubs") return resources.filter((resource) => resource.tags.includes("clubs"));
-  if (filter === "live") return resources.filter((resource) => resource.id.startsWith("live-"));
-  if (filter === "support") return resources.filter((resource) => !resource.tags.includes("clubs"));
-  return resources;
+  if (filter === "all") return browseResources;
+  if (filter === "clubs") return browseResources.filter((resource) => resource.tags.includes("clubs"));
+  if (filter === "live") return browseResources.filter((resource) => resource.id.startsWith("live-"));
+  if (filter === "support") return browseResources.filter((resource) => !resource.tags.includes("clubs"));
+  return browseResources;
 }
 
 function updateResourceCount(items) {
@@ -164,10 +201,15 @@ function setSpotlight(resource) {
   if (!resource) return;
   spotlightTitle.textContent = resource.name;
   spotlightOffice.textContent = resource.office;
-  spotlightSummary.textContent = resource.summary;
+  spotlightSummary.textContent = resource.bestFor ? `${resource.summary} Best for: ${resource.bestFor}.` : resource.summary;
   spotlightLink.href = resource.url;
   spotlightLink.textContent = "Open official page";
-  spotlightTags.innerHTML = (resource.tags || []).slice(0, 5).map((tag) => `<span class="tag">${tag}</span>`).join("");
+  const spotlightPills = [
+    ...(resource.tags || []).slice(0, 3).map((tag) => `<span class="tag">${tag}</span>`),
+    ...(resource.vibe ? [`<span class="tag">Vibe: ${escapeHtml(resource.vibe)}</span>`] : []),
+    ...(resource.commitment ? [`<span class="tag">Time: ${escapeHtml(resource.commitment)}</span>`] : []),
+  ];
+  spotlightTags.innerHTML = spotlightPills.join("");
 }
 
 function appendUserMessage(text) {
@@ -192,11 +234,11 @@ function appendAgentMessage(text) {
   scrollChatToBottom();
 }
 
-function appendAgentRecommendations(query, result) {
+function appendAgentRecommendations(query, result, usedMemory = false) {
   const message = document.createElement("article");
   message.className = "message message-agent";
 
-  const intro = buildIntro(query, result);
+  const intro = buildIntro(query, result, usedMemory);
   const answerCards = result.matches
     .map(
       ({ resource, reasons }) => `
@@ -204,6 +246,7 @@ function appendAgentRecommendations(query, result) {
           <h3>${resource.name}</h3>
           <p class="meta-line">${resource.office}</p>
           <p>${resource.summary}</p>
+          ${buildDetailRow(resource)}
           <div class="reason-row">${reasons.map((reason) => `<span class="reason">${reason}</span>`).join("")}</div>
           <p><strong>Next step:</strong> ${resource.nextStep}</p>
           <p class="next-step"><a class="source-link" href="${resource.url}" target="_blank" rel="noreferrer">Open official UMD page</a></p>
@@ -223,13 +266,17 @@ function appendAgentRecommendations(query, result) {
   scrollChatToBottom();
 }
 
-function buildIntro(query, result) {
+function buildIntro(query, result, usedMemory = false) {
+  if (usedMemory) {
+    return "I treated this as a follow-up and refined the previous search instead of starting over.";
+  }
+
   if (result.priority === "critical") {
     return "This reads like an urgent situation. I’m prioritizing immediate-support resources first, then the best follow-up office.";
   }
 
   if (result.detectedNeeds.includes("clubs")) {
-    return "This looks more like a discovery problem than a missing-interest problem, so I’m prioritizing category-based club browsing and human navigation support before the raw directory.";
+    return "This looks like a club fit problem, so I’m prioritizing specific organizations before directory-style resources.";
   }
 
   if (result.detectedNeeds.length >= 3) {
@@ -241,6 +288,36 @@ function buildIntro(query, result) {
   }
 
   return "Here are the strongest UMD matches based on the needs signaled in the message.";
+}
+
+function buildEffectiveQuery(query) {
+  if (!sessionState.lastEffectiveQuery) return query;
+  if (!isFollowUpQuery(query)) return query;
+
+  if (sessionState.lastNeeds.includes("clubs")) {
+    return `${sessionState.lastEffectiveQuery}. Refine this club search with: ${query}`;
+  }
+
+  return `${sessionState.lastEffectiveQuery}. Follow-up detail: ${query}`;
+}
+
+function isFollowUpQuery(query) {
+  const normalized = query.toLowerCase();
+  return (
+    normalized.length < 90 &&
+    /(more|less|not|another|instead|something|casual|beginner|competitive|social|creative|tech|closer|better)/.test(
+      normalized
+    )
+  );
+}
+
+function updateMessageLinks(seedText = "") {
+  const messageText = encodeURIComponent(
+    seedText || studentInput.value.trim() || "I need help finding UMD support or clubs."
+  );
+  const href = `sms:&body=${messageText}`;
+  messageLaunchLink.href = href;
+  messageLaunchLinkSecondary.href = href;
 }
 
 function escapeHtml(text) {

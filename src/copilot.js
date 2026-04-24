@@ -241,6 +241,128 @@ const clubResources = [
   },
 ];
 
+const clubProfilesById = {
+  "club-competitive-programming": {
+    bestFor: "students who want hard technical problem solving and interview-style prep",
+    vibe: "technical",
+    commitment: "medium",
+    beginnerFriendly: false,
+    competitiveness: "high",
+  },
+  "club-app-dev": {
+    bestFor: "students who want collaborative software projects and portfolio work",
+    vibe: "builder",
+    commitment: "medium",
+    beginnerFriendly: true,
+    competitiveness: "medium",
+  },
+  "club-cybersecurity": {
+    bestFor: "students interested in security, systems, and CTF culture",
+    vibe: "technical",
+    commitment: "medium",
+    beginnerFriendly: true,
+    competitiveness: "medium",
+  },
+  "club-game-dev": {
+    bestFor: "students who want creative projects at the intersection of art and code",
+    vibe: "creative",
+    commitment: "medium",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-xr": {
+    bestFor: "students who want immersive tech and experimental creative work",
+    vibe: "creative",
+    commitment: "medium",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-homelab": {
+    bestFor: "students into infrastructure, networking, and self-hosted systems",
+    vibe: "technical",
+    commitment: "medium",
+    beginnerFriendly: false,
+    competitiveness: "medium",
+  },
+  "club-technica": {
+    bestFor: "students who want hackathon energy, community, and big-campus tech events",
+    vibe: "career-social",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "medium",
+  },
+  "club-code-black": {
+    bestFor: "students who want both tech community and a stronger belonging/support network",
+    vibe: "belonging",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-ostem": {
+    bestFor: "LGBTQ+ students in STEM looking for community and mentorship",
+    vibe: "belonging",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-student-art-league": {
+    bestFor: "students who want a visual arts scene and a creative social circle",
+    vibe: "creative",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-terpoets": {
+    bestFor: "students who like poetry, writing, and literary community",
+    vibe: "creative",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-music-experimentation": {
+    bestFor: "students who want music-making, production, and collaboration",
+    vibe: "creative",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-swing-dance": {
+    bestFor: "students who want a social, beginner-friendly, low-pressure club",
+    vibe: "social",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-student-dance-association": {
+    bestFor: "students who want dance performance and a creative rehearsal-based group",
+    vibe: "creative",
+    commitment: "medium",
+    beginnerFriendly: true,
+    competitiveness: "medium",
+  },
+  "club-terps-racing": {
+    bestFor: "students who want hands-on engineering and serious build-team work",
+    vibe: "builder",
+    commitment: "high",
+    beginnerFriendly: false,
+    competitiveness: "high",
+  },
+  "club-juggling": {
+    bestFor: "students who want a casual, quirky, easy social community",
+    vibe: "social",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+  "club-rubiks-cube": {
+    bestFor: "students who want a low-stakes hobby club and casual problem solving",
+    vibe: "social",
+    commitment: "low",
+    beginnerFriendly: true,
+    competitiveness: "low",
+  },
+};
+
 const baseResources = [
   {
     id: "thrive-center",
@@ -450,6 +572,58 @@ const baseResources = [
     url: "https://umd.edu/academics/academic-support",
   },
   {
+    id: "health-center-primary-care",
+    name: "University Health Center Primary Care",
+    office: "University Health Center",
+    summary:
+      "General medical care for non-emergency health concerns including headaches, dizziness, sore throat, stomach issues, and other common illnesses.",
+    tags: ["medical", "health", "wellbeing"],
+    keywords: ["headache", "dizzy", "sick", "fever", "nausea", "cough", "flu", "cold", "rash", "pain"],
+    urgency: "medium",
+    nextStep: "Book an appointment through MyUHC or call 301-314-8184 for non-emergency medical concerns.",
+    reasonTemplate: "Best fit for non-emergency medical symptoms.",
+    url: "https://health.umd.edu/medical-behavioral-health/primary-care",
+  },
+  {
+    id: "health-center-acute-care",
+    name: "University Health Center Acute Care",
+    office: "University Health Center",
+    summary:
+      "Same-day care for urgent illness or injury when you need prompt medical attention but the issue is not life-threatening.",
+    tags: ["medical", "health", "urgent-care"],
+    keywords: ["urgent", "same day", "injury", "high fever", "allergic reaction", "dehydration", "chest pain"],
+    urgency: "high",
+    nextStep: "Call 301-314-8184 before coming in when possible so the Health Center can triage you faster.",
+    reasonTemplate: "Best fit for urgent but non-life-threatening medical issues.",
+    url: "https://health.umd.edu/Acute-Care",
+  },
+  {
+    id: "health-center-after-hours",
+    name: "Emergency and After Hours Care",
+    office: "University Health Center",
+    summary:
+      "After-hours medical guidance, nurse line, emergency instructions, and local urgent care options near campus.",
+    tags: ["medical", "health", "after-hours", "urgent-care"],
+    keywords: ["after hours", "nurse line", "urgent care", "emergency", "severe pain", "shortness of breath"],
+    urgency: "high",
+    nextStep: "Use the after-hours page for the nurse line, urgent care options, and emergency directions. For life-threatening emergencies, call 911.",
+    reasonTemplate: "Best fit for after-hours or emergency medical guidance.",
+    url: "https://health.umd.edu/about-us/emergency-and-after-hours-care",
+  },
+  {
+    id: "health-center-appointments",
+    name: "University Health Center Appointments",
+    office: "University Health Center",
+    summary:
+      "Appointment booking instructions for medical visits through MyUHC or by phone.",
+    tags: ["medical", "health"],
+    keywords: ["appointment", "schedule", "myuhc", "book visit"],
+    urgency: "low",
+    nextStep: "Schedule online at MyUHC or call 301-314-8184 during appointment hours.",
+    reasonTemplate: "Useful when the student already knows they need a visit and wants the booking path.",
+    url: "https://health.umd.edu/about-us/appointments",
+  },
+  {
     id: "terplink",
     name: "TerpLink Organization Directory",
     office: "Student Org Resource Center",
@@ -531,6 +705,23 @@ const tagMatchers = {
   food: ["food", "groceries", "meal", "hungry", "pantry", "eat"],
   finances: ["money", "tuition", "bill", "loan", "financial", "debt", "work study", "fafsa"],
   wellbeing: ["mental health", "stress", "anxiety", "depression", "overwhelmed", "burnout", "panic"],
+  medical: [
+    "headache",
+    "dizzy",
+    "dizziness",
+    "fever",
+    "nausea",
+    "vomiting",
+    "sick",
+    "cough",
+    "flu",
+    "cold",
+    "rash",
+    "pain",
+    "migraine",
+    "allergic reaction",
+    "injury",
+  ],
   academics: ["drop a class", "withdraw", "failing", "advisor", "class", "grades", "study"],
   disability: ["disability", "accommodation", "adhd", "accessible", "testing"],
   legal: ["legal", "landlord", "ticket", "contract", "immigration", "court", "scam"],
@@ -585,7 +776,10 @@ function mergeResources(staticResources, generatedResources) {
 }
 
 export const resources = mergeResources(baseResources, liveResources || []);
-export const clubCatalog = clubResources;
+export const clubCatalog = clubResources.map((club) => ({
+  ...club,
+  ...(clubProfilesById[club.id] || {}),
+}));
 
 export function detectNeeds(normalized) {
   const needs = new Set();
@@ -634,6 +828,10 @@ export function findBestResources(query) {
 
   if (detectedNeeds.includes("clubs")) {
     const clubInterests = detectClubInterests(normalized);
+    const wantsBeginner = /(beginner|new to|just starting|no experience)/.test(normalized);
+    const wantsCasual = /(casual|low pressure|laid back|easygoing|not too intense)/.test(normalized);
+    const avoidCompetitive = /(not competitive|less competitive|not too competitive)/.test(normalized);
+    const wantsCareer = /(career|resume|professional|networking|interview)/.test(normalized);
     const clubMatches = clubCatalog
       .map((club) => {
         let score = 0;
@@ -663,6 +861,31 @@ export function findBestResources(query) {
             score += 3;
             reasons.push("community angle");
           }
+        }
+
+        if (wantsBeginner) {
+          if (club.beginnerFriendly) {
+            score += 4;
+            reasons.push("beginner friendly");
+          } else {
+            score -= 2;
+          }
+        }
+
+        if (wantsCasual) {
+          if (club.commitment === "low" || club.vibe === "social") {
+            score += 4;
+            reasons.push("low-pressure fit");
+          }
+        }
+
+        if (avoidCompetitive && club.competitiveness === "high") {
+          score -= 6;
+        }
+
+        if (wantsCareer && ["career-social", "technical", "builder"].includes(club.vibe || "")) {
+          score += 3;
+          reasons.push("career upside");
         }
 
         if (!reasons.length && score > 0) {
@@ -715,6 +938,16 @@ export function findBestResources(query) {
         reasons.push("academic + personal triage");
       }
 
+      if (resource.id === "health-center-primary-care" && detectedNeeds.includes("medical")) {
+        score += 8;
+        reasons.push("medical symptoms");
+      }
+
+      if (resource.id === "health-center-acute-care" && detectedNeeds.includes("medical") && priority === "high") {
+        score += 6;
+        reasons.push("urgent medical care");
+      }
+
       if (resource.id === "organization-list" && detectedNeeds.includes("clubs")) {
         score += 4;
         reasons.push("easier club browsing");
@@ -736,6 +969,23 @@ export function findBestResources(query) {
     .slice(0, 3);
 
   if (!matches.length) {
+    if (detectedNeeds.includes("medical")) {
+      const medicalFallback = resources
+        .filter((resource) =>
+          [
+            "health-center-primary-care",
+            "health-center-acute-care",
+            "health-center-after-hours",
+          ].includes(resource.id)
+        )
+        .map((resource) => ({
+          resource,
+          reasons: [resource.reasonTemplate],
+        }));
+
+      return { matches: medicalFallback, detectedNeeds, priority };
+    }
+
     const fallback = resources
       .filter((resource) => ["thrive-center", "dean-of-students", "terplink"].includes(resource.id))
       .map((resource) => ({
